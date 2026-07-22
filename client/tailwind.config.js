@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
@@ -7,15 +6,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#0095F6',      // Instagram's signature blue (buttons, links)
+        primary: '#0095F6',
         'primary-hover': '#1877F2',
-        dark: '#262626',         // main text color
-        muted: '#8e8e8e',        // secondary/gray text
-        border: '#dbdbdb',       // borders, dividers
-        surface: '#ffffff',      // cards, inputs
-        background: '#fafafa',  // page background
+        dark: '#262626',
+        muted: '#8e8e8e',
+        border: '#dbdbdb',
+        surface: '#ffffff',
+        background: '#fafafa',
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar-hide')],
 }

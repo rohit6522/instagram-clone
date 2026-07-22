@@ -1,7 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
+import Layout from './components/Layout';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Feed from './pages/Feed';
 
 function App() {
   return (
@@ -12,10 +14,15 @@ function App() {
         path="/"
         element={
           <ProtectedRoute>
-            <div>Feed Page (coming soon)</div>
+            <Layout>
+                     <Feed />
+
+            </Layout>
           </ProtectedRoute>
         }
       />
+
+
     </Routes>
   );
 }
