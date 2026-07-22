@@ -6,6 +6,9 @@ import Signup from './pages/Signup';
 import Feed from './pages/Feed';
 import CreatePost from './pages/CreatePost';
 import Reels from './pages/Reels';
+import Messages from './pages/Messages';
+import ChatRoom from './pages/ChatRoom';
+
 
 function App() {
   return (
@@ -43,6 +46,24 @@ function App() {
         }
       />
 
+      <Route
+        path="/messages"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Messages />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/messages/:conversationId"
+        element={
+          <ProtectedRoute>
+            <ChatRoom />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }
