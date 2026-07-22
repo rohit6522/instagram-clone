@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Feed from './pages/Feed';
 import CreatePost from './pages/CreatePost';
+import Reels from './pages/Reels';
 
 function App() {
   return (
@@ -29,6 +30,15 @@ function App() {
             <Layout>
               <CreatePost />
             </Layout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/reels"
+        element={
+          <ProtectedRoute>
+            <Reels />
           </ProtectedRoute>
         }
       />
