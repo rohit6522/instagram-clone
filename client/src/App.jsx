@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Feed from './pages/Feed';
+import CreatePost from './pages/CreatePost';
 
 function App() {
   return (
@@ -15,13 +16,22 @@ function App() {
         element={
           <ProtectedRoute>
             <Layout>
-                     <Feed />
+              <Feed />
 
             </Layout>
           </ProtectedRoute>
         }
       />
-
+      <Route
+        path="/create"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <CreatePost />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
 
     </Routes>
   );
