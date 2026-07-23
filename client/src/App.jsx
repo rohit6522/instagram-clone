@@ -8,6 +8,7 @@ import CreatePost from './pages/CreatePost';
 import Reels from './pages/Reels';
 import Messages from './pages/Messages';
 import ChatRoom from './pages/ChatRoom';
+import Profile from './pages/Profile';
 
 
 function App() {
@@ -61,6 +62,17 @@ function App() {
         element={
           <ProtectedRoute>
             <ChatRoom />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/profile/:username"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Profile />
+            </Layout>
           </ProtectedRoute>
         }
       />

@@ -7,7 +7,8 @@ const getUserProfile = async (req, res) => {
     const user = await User.findOne({ username: req.params.username })
       .select('-password')
       .populate('followers', 'username profilePic')
-      .populate('following', 'username profilePic');
+      .populate('following', 'username profilePic')
+      .populate('posts'); // ADD THIS LINE
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
