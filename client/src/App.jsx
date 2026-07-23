@@ -10,6 +10,7 @@ import Messages from './pages/Messages';
 import ChatRoom from './pages/ChatRoom';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
+import Search from './pages/Search';
 
 
 function App() {
@@ -84,6 +85,18 @@ function App() {
           <ProtectedRoute>
             <Layout>
               <EditProfile />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+
+
+      <Route
+        path="/search"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <Search />
             </Layout>
           </ProtectedRoute>
         }

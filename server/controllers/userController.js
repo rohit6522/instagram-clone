@@ -136,10 +136,33 @@ const uploadAvatar = async (req, res) => {
   }
 };
 
+// @desc   Search users by username or full name
+// @route  GET /api/users/search/:query
+const searchUsers = async (req, res) => {
+  try {
+    const query = req.params.query;
+
+    const users = await User.find({
+      $or: [
+        { username: { $regex: query, $options: 'i' } },
+        { fullName: { $regex: query, $options: 'i' } },
+      ],
+    })
+      .select('username fullName profilePic')
+      .limit(20);
+
+    res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error searching users' });
+  }
+};
+
 module.exports = {
   getUserProfile,
   updateUserProfile,
   followUser,
   unfollowUser,
-  uploadAvatar, // ADD THIS
+  uploadAvatar,
+  searchUsers, // ADD THIS
 };
