@@ -9,6 +9,7 @@ import Reels from './pages/Reels';
 import Messages from './pages/Messages';
 import ChatRoom from './pages/ChatRoom';
 import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
 
 
 function App() {
@@ -72,6 +73,17 @@ function App() {
           <ProtectedRoute>
             <Layout>
               <Profile />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/edit-profile"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <EditProfile />
             </Layout>
           </ProtectedRoute>
         }

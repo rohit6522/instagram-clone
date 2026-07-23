@@ -122,9 +122,24 @@ const unfollowUser = async (req, res) => {
   }
 };
 
+// @desc   Upload a profile picture (just uploads, doesn't save to user yet)
+// @route  POST /api/users/upload-avatar
+const uploadAvatar = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'Please upload an image' });
+    }
+    res.status(200).json({ url: req.file.path });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error uploading avatar' });
+  }
+};
+
 module.exports = {
   getUserProfile,
   updateUserProfile,
   followUser,
   unfollowUser,
+  uploadAvatar, // ADD THIS
 };
