@@ -1,5 +1,5 @@
 const User = require('../models/User');
-
+const Notification = require('../models/Notification');
 // @desc   Get a user's profile by username
 // @route  GET /api/users/:username
 const getUserProfile = async (req, res) => {
@@ -70,7 +70,6 @@ const followUser = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Check if already following
     if (targetUser.followers.includes(currentUserId)) {
       return res.status(400).json({ message: 'Already following this user' });
     }
@@ -80,6 +79,13 @@ const followUser = async (req, res) => {
 
     await targetUser.save();
     await currentUser.save();
+
+    // Notify the person who just got followed
+    await Notification.create({
+      recipient: targetId,
+      sender: currentUserId,
+      type: 'follow',
+    });
 
     res.status(200).json({ message: 'User followed successfully' });
   } catch (error) {
@@ -157,6 +163,9 @@ const searchUsers = async (req, res) => {
     res.status(500).json({ message: 'Server error searching users' });
   }
 };
+
+
+
 
 module.exports = {
   getUserProfile,

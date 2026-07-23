@@ -11,6 +11,7 @@ import ChatRoom from './pages/ChatRoom';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import Search from './pages/Search';
+import Notifications from './pages/Notifications';
 
 
 function App() {
@@ -101,6 +102,17 @@ function App() {
           </ProtectedRoute>
         }
       />
+
+      <Route
+  path="/notifications"
+  element={
+    <ProtectedRoute>
+      <Layout>
+        <Notifications />
+      </Layout>
+    </ProtectedRoute>
+  }
+/>
     </Routes>
   );
 }

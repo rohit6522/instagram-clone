@@ -10,7 +10,7 @@ const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 const storyRoutes = require('./routes/storyRoutes');
 const messageRoutes = require('./routes/messageRoutes');
-
+const notificationRoutes = require('./routes/notificationRoutes');
 connectDB();
 
 const app = express();
@@ -33,7 +33,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/stories', storyRoutes);
 app.use('/api/messages', messageRoutes);
-
+app.use('/api/notifications', notificationRoutes);
 app.get('/', (req, res) => {
   res.send('API is running...');
 });

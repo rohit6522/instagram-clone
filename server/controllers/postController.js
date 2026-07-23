@@ -1,6 +1,6 @@
 const Post = require('../models/Post');
 const User = require('../models/User');
-
+const Notification = require('../models/Notification');
 // @desc   Create a new post (or reel if isReel=true)
 // @route  POST /api/posts
 const createPost = async (req, res) => {
@@ -137,6 +137,16 @@ const addComment = async (req, res) => {
     post.comments.push({ user: req.user._id, text });
     await post.save();
 
+    // Notify post owner, unless they're commenting on their own post
+    if (post.user.toString() !== req.user._id.toString()) {
+      await Notification.create({
+        recipient: post.user,
+        sender: req.user._id,
+        type: 'comment',
+        post: post._id,
+      });
+    }
+
     const updatedPost = await Post.findById(req.params.id)
       .populate('comments.user', 'username profilePic');
 
@@ -174,6 +184,47 @@ const deletePost = async (req, res) => {
   }
 };
 
+
+// @desc   Like / Unlike a post (toggle)
+const toggleLike = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    const alreadyLiked = post.likes.includes(req.user._id);
+
+    if (alreadyLiked) {
+      post.likes = post.likes.filter(
+        (id) => id.toString() !== req.user._id.toString()
+      );
+    } else {
+      post.likes.push(req.user._id);
+
+      // Only notify if you're not liking your own post
+      if (post.user.toString() !== req.user._id.toString()) {
+        await Notification.create({
+          recipient: post.user,
+          sender: req.user._id,
+          type: 'like',
+          post: post._id,
+        });
+      }
+    }
+
+    await post.save();
+
+    res.status(200).json({
+      liked: !alreadyLiked,
+      likesCount: post.likes.length,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error toggling like' });
+  }
+};
 module.exports = {
   createPost,
   getFeedPosts,
